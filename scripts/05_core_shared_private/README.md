@@ -96,9 +96,3 @@ The core_fraction parameter defines the minimum proportion of genomes required f
 Sample names are standardized before plotting to ensure consistent labeling.
 
 This analysis is based on graph topology and path assignments rather than linear genome coordinates.
-
-Recommended directory structure
-scripts/05_core_shared_private/
-├── README.md
-├── compute_core_shared_private.py
-└── plot_core_shared_private.R
