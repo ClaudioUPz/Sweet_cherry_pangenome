@@ -11,11 +11,11 @@ suppressPackageStartupMessages({
 options(dplyr.summarise.inform = FALSE)
 
 # ------------ CONFIG ------------
-BASE <- "/home/curra/pangenome"
+BASE <- "/path/to/basedir"
 chr_ids <- paste0("chr", 1:8)      # para probar solo chr1: chr_ids <- "chr1"
 details_name <- "snps_details_%s.csv"    # "%s" -> chr1, chr2, ...
-plots_dir <- file.path(BASE, "6.SNP", "plots_per_sample")
-sums_dir  <- file.path(BASE, "6.SNP", "summaries_per_sample")
+plots_dir <- file.path(BASE, "SNP_dir", "plots_per_sample")
+sums_dir  <- file.path(BASE, "SNP_dir", "summaries_per_sample")
 dir.create(plots_dir, showWarnings = FALSE, recursive = TRUE)
 dir.create(sums_dir,  showWarnings = FALSE, recursive = TRUE)
 
@@ -40,8 +40,8 @@ global_bp     <- tibble(SAMPLE=character(), bp=double())
 # ------------ LOOP POR CROMOSOMA ------------
 for (chr in chr_ids) {
   message("\n========== ", chr, " ==========")
-  csv <- file.path(BASE, "6.SNP", chr, sprintf(details_name, chr))
-  smp <- file.path(BASE, "6.SNP", chr, "samples.txt")
+  csv <- file.path(BASE, "SNP_dir", chr, sprintf(details_name, chr))
+  smp <- file.path(BASE, "SNP_dir", chr, "samples.txt")
 
   if (!file.exists(csv)) { message("Saltando (no existe): ", csv); next }
 
@@ -66,7 +66,7 @@ for (chr in chr_ids) {
     arrange(desc(ALT_sites))
 
   # Longitud por muestra en este cromosoma (FASTA: 5.pangenome/chrN/<SAMPLE>_chrN.fa)
-  fasta_paths <- file.path(BASE, "5.pangenome", chr, paste0(samples_chr, "_", chr, ".fa"))
+  fasta_paths <- file.path(BASE, "pangenome_dir", chr, paste0(samples_chr, "_", chr, ".fa"))
   bp_vec <- map_dbl(fasta_paths, fasta_bp)
   len_df <- tibble(SAMPLE = samples_chr, bp = bp_vec)
 
