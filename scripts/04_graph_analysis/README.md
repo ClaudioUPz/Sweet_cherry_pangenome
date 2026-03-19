@@ -160,8 +160,3 @@ tree_order.txt – genome order
 tree_path.tsv – path-to-genome mapping
 
 merged_growth_size_ReginaC.tsv – pangenome growth statistics
-
-Recommended directory structure
-scripts/04_graph_analysis/
-├── README.md
-├── generate_tree_files.py
