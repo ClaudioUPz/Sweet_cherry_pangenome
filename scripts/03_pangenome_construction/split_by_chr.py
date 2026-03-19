@@ -3,48 +3,48 @@ from Bio import SeqIO
 from Bio.SeqIO.FastaIO import FastaWriter
 import csv
 
-def dividir_genomas_por_cromosoma_y_log():
-    base_destino = "/home/curra/pangenome/5.pangenome"
-    cromosomas = [f"chr{i}" for i in range(1, 9)]
-    archivos = sorted([f for f in os.listdir(".") if f.endswith(".fasta")])
+def split_genomes_by_chromosome_y_log():
+    out_dir = "/path/to/outdir"
+    chromosomes = [f"chr{i}" for i in range(1, 9)]
+    files = sorted([f for f in os.listdir(".") if f.endswith(".fasta")])
 
-    # Crear carpetas chr1/ ... chr8/ si no existen
-    for chr_id in cromosomas:
-        os.makedirs(os.path.join(base_destino, chr_id), exist_ok=True)
+    # Make directories chr1/ ... chr8/ if they don't exist
+    for chr_id in chromosomes:
+        os.makedirs(os.path.join(out_dir, chr_id), exist_ok=True)
 
-    log_registros = []
+    log_register = []
 
-    for archivo in archivos:
-        for record in SeqIO.parse(archivo, "fasta"):
+    for file in files:
+        for record in SeqIO.parse(file, "fasta"):
             id_split = record.id.split("__")
-            if len(id_split) == 2 and id_split[0] in cromosomas:
+            if len(id_split) == 2 and id_split[0] in chromosomes:
                 chr_id = id_split[0]
-                genoma = id_split[1]
-                output_path = os.path.join(base_destino, chr_id, f"{genoma}_{chr_id}.fa")
+                genome = id_split[1]
+                output_path = os.path.join(out_dir, chr_id, f"{genome}_{chr_id}.fa")
                 
                 with open(output_path, "w") as out:
-                    writer = FastaWriter(out, wrap=None)  # wrap=None → una sola línea
+                    writer = FastaWriter(out, wrap=None)  # wrap=None → one line
                     writer.write_header()
                     writer.write_record(record)
                     writer.write_footer()
 
-                log_registros.append({
-                    "archivo_origen": archivo,
-                    "cromosoma": chr_id,
-                    "nombre_genoma": genoma,
-                    "archivo_salida": output_path
+                log_register.append({
+                    "original_file": file,
+                    "chromosome": chr_id,
+                    "genome_name": genome,
+                    "output_file": output_path
                 })
-                print(f"✔ Guardado: {output_path}")
+                print(f"✔ Saved: {output_path}")
 
-    # Escribir log
-    log_path = os.path.join(base_destino, "registro_division_fasta.tsv")
+    # Write log
+    log_path = os.path.join(out_dir, "fasta_division_register.tsv")
     with open(log_path, "w", newline='') as log_file:
-        writer = csv.DictWriter(log_file, delimiter='\t', fieldnames=["archivo_origen", "cromosoma", "nombre_genoma", "archivo_salida"])
+        writer = csv.DictWriter(log_file, delimiter='\t', fieldnames=["original_file", "chromosome", "genome_name", "output_file"])
         writer.writeheader()
-        for row in log_registros:
+        for row in log_register:
             writer.writerow(row)
 
-    print(f"✔ Log generado: {log_path}")
+    print(f"✔ Log generated: {log_path}")
 
 if __name__ == "__main__":
-    dividir_genomas_por_cromosoma_y_log()
+    split genomes by chromosome_y_log()
