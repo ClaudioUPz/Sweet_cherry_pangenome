@@ -258,9 +258,3 @@ echo "Validation completed"
 date
 Usage
 sbatch validate_vg_graphs.sh
-Recommended directory structure
-scripts/03_pangenome_construction/
-├── README.md
-├── split_by_chr.py
-├── run_minicactus.sh
-└── validate_vg_graphs.sh
