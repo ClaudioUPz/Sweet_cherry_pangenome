@@ -9,8 +9,8 @@
 set -euo pipefail
 module load bcftools
 
-BASE="/home/curra/pangenome"
-SNP_DIR="$BASE/6.SNP"
+BASE="/path/to/basedir"
+SNP_DIR="$BASE/SNP_dir"
 
 mkdir -p logs
 
