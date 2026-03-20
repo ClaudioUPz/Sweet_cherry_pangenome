@@ -26,7 +26,7 @@ Sweet_cherry_pangenome/
 ├── 06_annotation/
 ├── 07_population_genomics/
 ├── 08_GWAS/
-├── 09_Fst/
+├── 09_fst/
 │
 └── README.md
 🔬 Conceptual workflow
