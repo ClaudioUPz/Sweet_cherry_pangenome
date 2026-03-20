@@ -315,3 +315,29 @@ Missing genotypes were imputed using the mean genotype value per marker.
 Both GLM and MLM models were run for each trait.
 
 The same GWAS framework was used for both SV and SNP datasets, enabling direct comparison of association results.
+
+## Step 7: Intersect significant SVs with genes
+
+Significant SVs identified in GWAS were intersected with gene annotations to identify candidate genes overlapping or located near associated variants.
+
+The workflow included:
+
+- conversion of significant GWAS hits into BED format
+- extraction of gene coordinates from the reference GFF annotation
+- intersection of SVs with genes using `bedtools intersect`
+- identification of nearby genes within 10 kb using `bedtools window`
+- extraction of gene IDs and functional names from the GFF file
+- generation of annotated SV-gene association tables
+- export of candidate gene lists
+
+### Script
+
+- `annotate_sv_hits_with_genes.sh`
+
+### Main outputs
+
+- `sv_gene_annotation_all.tsv`
+- `sv_gene_annotation_inside.tsv`
+- `sv_gene_annotation_near_10kb.tsv`
+- `candidate_geneIDs_10kb.txt`
+- `candidate_geneNames_10kb.txt`
